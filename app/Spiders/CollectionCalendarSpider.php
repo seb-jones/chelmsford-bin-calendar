@@ -39,13 +39,22 @@ class CollectionCalendarSpider extends BasicSpider
     /** @return Request[] */
     protected function initialRequests(): array
     {
-        return [
-            new Request(
+        return collect([
+            'tuesday-a',
+            'tuesday-b',
+            'wednesday-a',
+            'wednesday-b',
+            'thursday-a',
+            'thursday-b',
+            'friday-a',
+            'friday-b',
+        ])->map(
+            fn ($slug) => new Request(
                 'GET',
-                'https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/thursday-a-collection-calendar/',
+                "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/$slug-collection-calendar/",
                 [$this, 'parse'],
                 ['verify' => config('app.env') !== 'development'],
             ),
-        ];
+        )->toArray();
     }
 }
