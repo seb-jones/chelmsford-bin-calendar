@@ -39,7 +39,7 @@ class ScrapeCollectionCalendarPage
             ->filter(
                 fn ($li) => Str::of($li->text())
                     ->trim()
-                    ->match('/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday).+:/i')
+                    ->match('/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday).+:.+$/i')
                     ->isNotEmpty()
             )
             ->map(function ($li) {
@@ -49,7 +49,7 @@ class ScrapeCollectionCalendarPage
                 );
 
                 return [
-                    'date' => Carbon::parse($date)->toDateTimeString(),
+                    'date' => Carbon::parse($date),
                     'text' => trim($text),
                 ];
             });
