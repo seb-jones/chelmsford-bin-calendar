@@ -29,6 +29,8 @@ class Scrape extends Command
      */
     public function handle(ScrapeCollectionCalendarPage $scrape)
     {
+        $this->line("Application is running in " . config('app.env') . " mode");
+
         collect([
             'thursday-a',
             'thursday-b',
