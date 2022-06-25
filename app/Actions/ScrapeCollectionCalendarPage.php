@@ -5,8 +5,9 @@ namespace App\Actions;
 use DiDom\Document;
 use DiDom\Element;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Carbon\Carbon;
 
 class ScrapeCollectionCalendarPage
@@ -23,7 +24,7 @@ class ScrapeCollectionCalendarPage
         Log::info("ScrapeCollectionCalendarPage::__construct: generated month options '$this->monthOptions'");
     }
 
-    public function __invoke(string $url)
+    public function __invoke(string $url):Collection
     {
         Log::info("ScrapeCollectionCalendarPage::__invoke: GET $url");
 
@@ -35,7 +36,7 @@ class ScrapeCollectionCalendarPage
 
         $document = new Document($response->body());
 
-        $calendarEntries = collect($document->find('ul li'))
+        return collect($document->find('ul li'))
             ->filter(
                 fn ($li) => Str::of($li->text())
                     ->trim()
@@ -53,8 +54,6 @@ class ScrapeCollectionCalendarPage
                     'text' => trim($text),
                 ];
             });
-
-        Log::info("ScrapeCollectionCalendarPage::__invoke: Parsed {$calendarEntries->count()} items from $url");
     }
 
     private function replaceUnicodeSpacesWithAsciiSpaces(string $s):string

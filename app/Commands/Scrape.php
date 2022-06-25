@@ -30,12 +30,16 @@ class Scrape extends Command
     public function handle(ScrapeCollectionCalendarPage $scrape)
     {
         collect([
-            'https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/thursday-a-collection-calendar/',
-            'https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/thursday-b-collection-calendar/',
-        ])->each(function ($url) use ($scrape) {
-            $scrape($url);
+            'thursday-a',
+            'thursday-b',
+        ])->map(function ($slug) use ($scrape) {
+            $this->info("Scraping $slug");
 
-            $this->info("Scraped URL $url successfully");
+            $entries = $scrape(
+                "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/$slug-collection-calendar/"
+            )->each(function ($entry) {
+                $this->comment("{$entry['date']->format('l jS F')}\t{$entry['text']}");
+            });
         });
 
         return 0;
