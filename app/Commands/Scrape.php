@@ -2,9 +2,9 @@
 
 namespace App\Commands;
 
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
-use App\Actions\ScrapeCollectionCalendarPage;
+use App\Spiders\CollectionCalendarSpider;
+use RoachPHP\Roach;
 
 class Scrape extends Command
 {
@@ -27,20 +27,17 @@ class Scrape extends Command
      *
      * @return mixed
      */
-    public function handle(ScrapeCollectionCalendarPage $scrape)
+    public function handle()
     {
         $this->line("Application is running in " . config('app.env') . " mode");
 
-        collect([
-            'thursday-a',
-            'thursday-b',
-        ])->map(function ($slug) use ($scrape) {
-            $this->info("Scraping $slug");
+        $entries = Roach::collectSpider(CollectionCalendarSpider::class);
 
-            $entries = $scrape(
-                "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/$slug-collection-calendar/"
-            )->each(function ($entry) {
-                $this->comment("{$entry['date']->format('l jS F')}\t{$entry['text']}");
+        collect($entries)->each(function ($entry) {
+            $this->info($entry['title']);
+
+            $entry['items']->each(function ($item) {
+                $this->comment("{$item['date']->toDateString()}\t{$item['description']}");
             });
         });
 
