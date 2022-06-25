@@ -37,7 +37,7 @@ class Scrape extends Command
             $this->info($entry['title']);
 
             $entry['items']->each(function ($item) {
-                $this->comment("{$item['date']->toDateString()}\t{$item['description']}");
+                $this->comment("{$item['date']->format('l jS F')}\t{$item['description']}");
             });
         });
 
