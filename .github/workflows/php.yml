@@ -35,8 +35,5 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Install latest ca-certificates package
-      run: sudo apt-get install ca-certificates
-
     - name: Run scrape command
       run: php chelmsford-bins scrap
