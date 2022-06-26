@@ -34,19 +34,28 @@ class Scrape extends Command
     {
         $this->line("Application is running in " . config('app.env') . " mode");
 
+        $outputDirectory = 'output';
+
+        if (!File::isDirectory($outputDirectory)) {
+            File::makeDirectory($outputDirectory);
+            $this->info('Created output directory');
+        }
+
         $calendars = collect(
             Roach::collectSpider(CollectionCalendarSpider::class)
         );
 
-        collect($calendars)->each(function ($calendar) use ($createIcalData) {
-            $this->info($calendar['title']);
+        $this->info('Scraped Calendar Data');
+
+        collect($calendars)->each(function ($calendar) use ($createIcalData, $outputDirectory) {
+            $this->info("\n" . $calendar['title']);
 
             $calendar['items']->each(function ($item) {
                 $this->comment("{$item['date']->format('l jS F')}\t{$item['description']}");
             });
 
             File::put(
-                base_path(Str::slug($calendar['title']) . '.ics'),
+                base_path("$outputDirectory/" . Str::slug($calendar['title']) . '.ics'),
                 $createIcalData($calendar)
             );
         });
