@@ -33,7 +33,9 @@ class CollectionCalendarSpider extends BasicSpider
             ];
         })->values();
 
-        yield $this->item(compact('title', 'items'));
+        $uri = $response->getUri();
+
+        yield $this->item(compact('title', 'items', 'uri'));
     }
 
     /** @return Request[] */
