@@ -34,3 +34,9 @@ jobs:
 
     - name: Run scrape command
       run: php chelmsford-bins scrap
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ics-files
+        path: output
