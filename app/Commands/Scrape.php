@@ -2,8 +2,11 @@
 
 namespace App\Commands;
 
-use LaravelZero\Framework\Commands\Command;
+use App\Actions\CreateIcalData;
 use App\Spiders\CollectionCalendarSpider;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
+use LaravelZero\Framework\Commands\Command;
 use RoachPHP\Roach;
 
 class Scrape extends Command
@@ -27,18 +30,25 @@ class Scrape extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(CreateIcalData $createIcalData)
     {
         $this->line("Application is running in " . config('app.env') . " mode");
 
-        $entries = Roach::collectSpider(CollectionCalendarSpider::class);
+        $calendars = collect(
+            Roach::collectSpider(CollectionCalendarSpider::class)
+        );
 
-        collect($entries)->each(function ($entry) {
-            $this->info($entry['title']);
+        collect($calendars)->each(function ($calendar) use ($createIcalData) {
+            $this->info($calendar['title']);
 
-            $entry['items']->each(function ($item) {
+            $calendar['items']->each(function ($item) {
                 $this->comment("{$item['date']->format('l jS F')}\t{$item['description']}");
             });
+
+            File::put(
+                base_path(Str::slug($calendar['title']) . '.ics'),
+                $createIcalData($calendar)
+            );
         });
 
         return 0;
