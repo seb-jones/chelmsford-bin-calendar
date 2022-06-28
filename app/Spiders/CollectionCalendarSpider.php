@@ -39,7 +39,6 @@ class CollectionCalendarSpider extends BasicSpider
         )->filter(
             fn ($li) => Str::of($li)->trim()->match($liDayRegex)->isNotEmpty()
         )->map(function ($li) {
-            // Replace Unicode spaces with ASCII spaces
             $text = $this->replaceUnicodeSpacesWithAsciiSpaces($li);
 
             [ $date, $description ] = explode(':', $text);
