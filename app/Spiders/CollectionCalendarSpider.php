@@ -3,6 +3,7 @@
 namespace App\Spiders;
 
 use Illuminate\Support\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Support\Str;
 use RoachPHP\Http\Request;
 use RoachPHP\Http\Response;
@@ -14,16 +15,32 @@ class CollectionCalendarSpider extends BasicSpider
     {
         $title = $response->filter('h1')->text();
 
+        $months = collect(CarbonPeriod::create('2022-01-01', '1 month', '2023-01-01'))->map(
+            fn ($p) => Str::lower($p->format('F'))
+        )->implode("|");
+
+        $h2MonthRegex = '/^(january|february|march|april|may|june|july|august|september|october|november|december)/i';
+
+        $months = collect(
+            $response->filter('h2')->each(
+                fn ($h2) => Str::of(
+                    $this->replaceUnicodeSpacesWithAsciiSpaces($h2->text())
+                )->trim()
+                 ->match($h2MonthRegex)
+            )
+        )->filter(
+            fn ($h2) => $h2->isNotEmpty()
+        );
+
+        $liDayRegex = '/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday).+:.+$/i';
+
         $items = collect(
             $response->filter('h2 + ul > li')->each(fn ($element) => $element->text())
         )->filter(
-            fn ($li) => Str::of($li)
-                ->trim()
-                ->match('/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday).+:.+$/i')
-                ->isNotEmpty()
+            fn ($li) => Str::of($li)->trim()->match($liDayRegex)->isNotEmpty()
         )->map(function ($li) {
             // Replace Unicode spaces with ASCII spaces
-            $text = preg_replace('/[\pZ\pC]/u', ' ', $li);
+            $text = $this->replaceUnicodeSpacesWithAsciiSpaces($li);
 
             [ $date, $description ] = explode(':', $text);
 
@@ -35,7 +52,12 @@ class CollectionCalendarSpider extends BasicSpider
 
         $uri = $response->getUri();
 
-        yield $this->item(compact('title', 'items', 'uri'));
+        yield $this->item(compact('title', 'months', 'items', 'uri'));
+    }
+
+    private function replaceUnicodeSpacesWithAsciiSpaces(string $string):string
+    {
+        return preg_replace('/[\pZ\pC]/u', ' ', $string);
     }
 
     /** @return Request[] */

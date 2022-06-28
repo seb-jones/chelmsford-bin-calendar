@@ -48,7 +48,7 @@ class Scrape extends Command
         $this->info('Scraped Calendar Data');
 
         collect($calendars)->each(function ($calendar) use ($createIcalData, $outputDirectory) {
-            $this->info("\n" . $calendar['title']);
+            $this->info("\n{$calendar['title']} {$calendar['months']->first()} to {$calendar['months']->last()}");
 
             $calendar['items']->each(function ($item) {
                 $this->comment("{$item['date']->format('l jS F')}\t{$item['description']}");
