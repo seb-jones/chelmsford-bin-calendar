@@ -15,10 +15,6 @@ class CollectionCalendarSpider extends BasicSpider
     {
         $title = $response->filter('h1')->text();
 
-        $months = collect(CarbonPeriod::create('2022-01-01', '1 month', '2023-01-01'))->map(
-            fn ($p) => Str::lower($p->format('F'))
-        )->implode("|");
-
         $h2MonthRegex = '/^(january|february|march|april|may|june|july|august|september|october|november|december)/i';
 
         $months = collect(
