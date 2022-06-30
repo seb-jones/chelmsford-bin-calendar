@@ -28,6 +28,8 @@ class CollectionCalendarSpider extends BasicSpider
             )
         )->filter(
             fn ($h2) => $h2->isNotEmpty()
+        )->map(
+            fn ($h2) => Carbon::parse($h2)
         );
 
         $liDayRegex = '/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday).+:.+$/i';
