@@ -7,6 +7,6 @@ It is built on the [Laravel Zero](https://github.com/laravel-zero/laravel-zero) 
 ## Todo
 
 - [x] [Schedule](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) workflow to perform scrape at regular interval (e.g. daily? weekly?)
-- [ ] Order by year/month and then by collection round day
-- [ ] Make classes for Calendar and Entry
+- [x] Order by year/month and then by collection round day
+- [x] Make classes for Calendar and Entry
 - [ ] Publish downloads on Github pages
