@@ -14,10 +14,11 @@ use Eluceo\iCal\Domain\ValueObject\Timestamp;
 use Eluceo\iCal\Domain\ValueObject\Uri;
 use Eluceo\iCal\Presentation\Factory\CalendarFactory;
 use Illuminate\Support\Collection;
+use RoachPHP\ItemPipeline\Item;
 
 class CreateIcalData
 {
-    public function __invoke($calendar):string
+    public function __invoke(Item $calendar):string
     {
         $events = collect($calendar['items'])->map(function ($item) use ($calendar) {
             $event = new Event();

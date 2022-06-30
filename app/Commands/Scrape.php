@@ -67,7 +67,7 @@ class Scrape extends Command
             })->tap(function ($calendars) use ($outputDirectory) {
                 File::put(
                     "$outputDirectory/index.html",
-                    View::make('index', compact('calendars'))
+                    View::make('index', compact('calendars'))->render()
                 );
             });
 
