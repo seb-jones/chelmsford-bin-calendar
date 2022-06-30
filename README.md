@@ -9,4 +9,7 @@ It is built on the [Laravel Zero](https://github.com/laravel-zero/laravel-zero) 
 - [x] [Schedule](https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#schedule) workflow to perform scrape at regular interval (e.g. daily? weekly?)
 - [x] Order by year/month and then by collection round day
 - [x] Make classes for Calendar and Entry
-- [ ] Publish downloads on Github pages
+- [ ] Structure output sub-directories to naturally sort correctly
+- [ ] Make action for writing index.html based on existing .ics files, rather than date that was just scraped
+- [ ] Commit output files after run in CI?
+- [ ] Publish on Github pages
