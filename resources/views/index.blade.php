@@ -9,7 +9,7 @@
         <ul>
             @foreach ($calendars as $calendar)
                 <li>
-                    <a href="{{ $calendar['filename'] }}">{{ $calendar['title'] }}</a>
+                    <a href="{{ $calendar->filename }}">{{ $calendar->title }}</a>
                 </li>
             @endforeach
         </ul>

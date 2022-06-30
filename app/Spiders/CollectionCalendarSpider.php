@@ -3,6 +3,7 @@
 namespace App\Spiders;
 
 use App\DTOs\CalendarEntry;
+use App\DTOs\Calendar;
 use Illuminate\Support\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Str;
@@ -45,7 +46,9 @@ class CollectionCalendarSpider extends BasicSpider
 
         $uri = $response->getUri();
 
-        yield $this->item(compact('title', 'months', 'entries', 'uri'));
+        yield $this->item([
+            'calendar' => new Calendar($title, $months, $entries, $uri)
+        ]);
     }
 
     private function replaceUnicodeSpacesWithAsciiSpaces(string $string):string

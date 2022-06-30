@@ -3,8 +3,9 @@
 namespace App\Actions;
 
 use DateInterval;
+use App\DTOs\Calendar;
 use App\DTOs\CalendarEntry;
-use Eluceo\iCal\Domain\Entity\Calendar;
+use Eluceo\iCal\Domain\Entity\Calendar as iCalCalendar;
 use Eluceo\iCal\Domain\Entity\Event;
 use Eluceo\iCal\Domain\ValueObject\Alarm;
 use Eluceo\iCal\Domain\ValueObject\Alarm\EmailAction;
@@ -19,15 +20,15 @@ use RoachPHP\ItemPipeline\Item;
 
 class CreateIcalData
 {
-    public function __invoke(Item $calendar):string
+    public function __invoke(Calendar $calendar):string
     {
-        $events = collect($calendar['entries'])->map(function (CalendarEntry $entry) use ($calendar) {
+        $events = $calendar->entries->map(function (CalendarEntry $entry) use ($calendar) {
             $event = new Event();
 
             $event->setSummary('Bins')
                   ->setDescription($entry->description)
                   ->setUrl(
-                      new Uri($calendar['uri'])
+                      new Uri($calendar->uri)
                   )
                   ->setOccurrence(
                       new SingleDay(
@@ -48,7 +49,7 @@ class CreateIcalData
             return $event;
         });
 
-        $calendar = new Calendar($events->toArray());
+        $calendar = new iCalCalendar($events->toArray());
 
         return (string)(new CalendarFactory())->createCalendar($calendar);
     }

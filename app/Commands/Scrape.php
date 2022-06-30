@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Actions\CreateIcalData;
+use App\DTOs\Calendar;
 use App\DTOs\CalendarEntry;
 use App\Spiders\CollectionCalendarSpider;
 use Illuminate\Support\Facades\File;
@@ -43,29 +44,27 @@ class Scrape extends Command
             $this->info('Created output directory');
         }
 
-        $calendars = collect(
+        $scrapedItems = collect(
             Roach::collectSpider(CollectionCalendarSpider::class)
         );
 
         $this->info('Scraped Calendar Data');
 
-        collect($calendars)
-            ->map(function ($calendar) {
-                $calendar['filename'] = Str::slug($calendar['title']) . '.ics';
+        $scrapedItems
+            ->pluck('calendar')
+            ->each(function (Calendar $calendar) use ($createIcalData, $outputDirectory) {
+                $this->info("\n$calendar");
 
-                return $calendar;
-            })->each(function ($calendar) use ($createIcalData, $outputDirectory) {
-                $this->info("\n{$calendar['title']} {$calendar['months']->first()} to {$calendar['months']->last()}");
-
-                $calendar['entries']->each(function (CalendarEntry $entry) {
+                $calendar->entries->each(function (CalendarEntry $entry) {
                     $this->comment($entry);
                 });
 
                 File::put(
-                    base_path("$outputDirectory/{$calendar['filename']}"),
+                    base_path("$outputDirectory/{$calendar->filename}"),
                     $createIcalData($calendar)
                 );
-            })->tap(function ($calendars) use ($outputDirectory) {
+            })
+            ->tap(function ($calendars) use ($outputDirectory) {
                 File::put(
                     "$outputDirectory/index.html",
                     View::make('index', compact('calendars'))->render()
