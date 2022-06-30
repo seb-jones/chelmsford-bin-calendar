@@ -28,7 +28,7 @@ class Scrape extends Command
      */
     protected $description = 'Scrapes each collection calendar from bins and recycling site';
 
-    protected $outputDirectory = 'output';
+    protected string $outputDirectory = 'output';
 
     /**
      * Execute the console command.
