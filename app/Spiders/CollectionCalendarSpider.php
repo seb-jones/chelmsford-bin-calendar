@@ -2,6 +2,7 @@
 
 namespace App\Spiders;
 
+use App\DTOs\CalendarEntry;
 use Illuminate\Support\Carbon;
 use Carbon\CarbonPeriod;
 use Illuminate\Support\Str;
@@ -30,7 +31,7 @@ class CollectionCalendarSpider extends BasicSpider
 
         $liDayRegex = '/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday).+:.+$/i';
 
-        $items = collect(
+        $entries = collect(
             $response->filter('h2 + ul > li')->each(fn ($element) => $element->text())
         )->filter(
             fn ($li) => Str::of($li)->trim()->match($liDayRegex)->isNotEmpty()
@@ -39,15 +40,12 @@ class CollectionCalendarSpider extends BasicSpider
 
             [ $date, $description ] = explode(':', $text);
 
-            return [
-                'date' => Carbon::parse($date),
-                'description' => trim($description),
-            ];
+            return new CalendarEntry(Carbon::parse($date), trim($description));
         })->values();
 
         $uri = $response->getUri();
 
-        yield $this->item(compact('title', 'months', 'items', 'uri'));
+        yield $this->item(compact('title', 'months', 'entries', 'uri'));
     }
 
     private function replaceUnicodeSpacesWithAsciiSpaces(string $string):string

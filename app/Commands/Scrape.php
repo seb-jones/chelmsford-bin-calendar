@@ -3,6 +3,7 @@
 namespace App\Commands;
 
 use App\Actions\CreateIcalData;
+use App\DTOs\CalendarEntry;
 use App\Spiders\CollectionCalendarSpider;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
@@ -56,8 +57,8 @@ class Scrape extends Command
             })->each(function ($calendar) use ($createIcalData, $outputDirectory) {
                 $this->info("\n{$calendar['title']} {$calendar['months']->first()} to {$calendar['months']->last()}");
 
-                $calendar['items']->each(function ($item) {
-                    $this->comment("{$item['date']->format('l jS F')}\t{$item['description']}");
+                $calendar['entries']->each(function (CalendarEntry $entry) {
+                    $this->comment($entry);
                 });
 
                 File::put(

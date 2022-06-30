@@ -3,6 +3,7 @@
 namespace App\Actions;
 
 use DateInterval;
+use App\DTOs\CalendarEntry;
 use Eluceo\iCal\Domain\Entity\Calendar;
 use Eluceo\iCal\Domain\Entity\Event;
 use Eluceo\iCal\Domain\ValueObject\Alarm;
@@ -20,17 +21,17 @@ class CreateIcalData
 {
     public function __invoke(Item $calendar):string
     {
-        $events = collect($calendar['items'])->map(function ($item) use ($calendar) {
+        $events = collect($calendar['entries'])->map(function (CalendarEntry $entry) use ($calendar) {
             $event = new Event();
 
             $event->setSummary('Bins')
-                  ->setDescription($item['description'])
+                  ->setDescription($entry->description)
                   ->setUrl(
                       new Uri($calendar['uri'])
                   )
                   ->setOccurrence(
                       new SingleDay(
-                          new Date($item['date'])
+                          new Date($entry->date)
                       )
                   )
                   ->addAlarm(
@@ -38,7 +39,7 @@ class CreateIcalData
                           new EmailAction('Alarm notification', 'This is an event reminder'),
                           new AbsoluteDateTimeTrigger(
                               new Timestamp(
-                                  $item['date']->clone()->subDay()->setTime(18, 30)
+                                  $entry->date->clone()->subDay()->setTime(18, 30)
                               )
                           )
                       )
