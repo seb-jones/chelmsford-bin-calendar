@@ -11,6 +11,7 @@ class Calendar
     public string $filename;
     public Carbon $firstMonth;
     public Carbon $lastMonth;
+    public Carbon $day;
 
     /**
      * @param string $title
@@ -23,6 +24,11 @@ class Calendar
         $this->filename = Str::slug($this->title) . '.ics';
         $this->firstMonth = $months->first();
         $this->lastMonth = $months->last();
+        $this->day = Carbon::parse(
+            Str::of($title)->match(
+                '/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i'
+            )
+        );
     }
 
     public function __toString(): string

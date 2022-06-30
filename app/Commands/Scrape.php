@@ -53,7 +53,7 @@ class Scrape extends Command
         $scrapedItems
             ->pluck('calendar')
             ->sortBy(
-                fn ($calendar) => "{$calendar->months->first()->year} {$calendar->months->first()->month}"
+                fn ($calendar) => "{$calendar->firstMonth->year} {$calendar->firstMonth->month} {$calendar->day->format('w')}"
             )
             ->each(function (Calendar $calendar) use ($createIcalData) {
                 $this->info("\n$calendar");
