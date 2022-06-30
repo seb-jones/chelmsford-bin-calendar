@@ -35,7 +35,7 @@ jobs:
       run: composer install --prefer-dist --no-progress
 
     - name: Run Larastan static analyser
-      run: ./vendor/bin/phpstan analyse --memory-limit=2G
+      run: ./vendor/bin/phpstan analyse --memory-limit=2G --no-progress
 
     - name: Run scrape command
       run: php chelmsford-bins scrap
