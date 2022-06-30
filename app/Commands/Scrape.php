@@ -28,6 +28,8 @@ class Scrape extends Command
      */
     protected $description = 'Scrapes each collection calendar from bins and recycling site';
 
+    protected $outputDirectory = 'output';
+
     /**
      * Execute the console command.
      *
@@ -37,10 +39,8 @@ class Scrape extends Command
     {
         $this->line("Application is running in " . config('app.env') . " mode");
 
-        $outputDirectory = 'output';
-
-        if (!File::isDirectory($outputDirectory)) {
-            File::makeDirectory($outputDirectory);
+        if (!File::isDirectory($this->outputDirectory)) {
+            File::makeDirectory($this->outputDirectory);
             $this->info('Created output directory');
         }
 
@@ -52,25 +52,27 @@ class Scrape extends Command
 
         $scrapedItems
             ->pluck('calendar')
-            ->each(function (Calendar $calendar) use ($createIcalData, $outputDirectory) {
+            ->each(function (Calendar $calendar) use ($createIcalData) {
                 $this->info("\n$calendar");
 
                 $calendar->entries->each(function (CalendarEntry $entry) {
                     $this->comment($entry);
                 });
 
-                File::put(
-                    base_path("$outputDirectory/{$calendar->filename}"),
-                    $createIcalData($calendar)
-                );
+                $this->outputFile($calendar->filename, $createIcalData($calendar));
             })
-            ->tap(function ($calendars) use ($outputDirectory) {
-                File::put(
-                    "$outputDirectory/index.html",
+            ->tap(function ($calendars) {
+                $this->outputFile(
+                    'index.html',
                     View::make('index', compact('calendars'))->render()
                 );
             });
 
         return 0;
+    }
+
+    protected function outputFile(string $filename, string $content): void
+    {
+        File::put(base_path("$this->outputDirectory/$filename"), $content);
     }
 }
