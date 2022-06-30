@@ -28,6 +28,7 @@
     },
     "require-dev": {
         "mockery/mockery": "^1.4.4",
+        "nunomaduro/larastan": "^2.0",
         "pestphp/pest": "^1.21.1"
     },
     "autoload": {
