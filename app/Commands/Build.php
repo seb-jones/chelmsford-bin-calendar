@@ -2,11 +2,9 @@
 
 namespace App\Commands;
 
+use App\Actions\BuildIndexPage;
 use App\Traits\OutputsFiles;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 
 class Build extends Command
@@ -32,27 +30,13 @@ class Build extends Command
      *
      * @return mixed
      */
-    public function handle()
+    public function handle(BuildIndexPage $buildIndexPage)
     {
-        $calendarFiles = collect(
+        collect(
             File::files(base_path("$this->outputDirectory/ics"))
-        )->map(function ($file) {
-            preg_match(
-                '/^(\d\d\d\d-\d\d)-to-(\d\d\d\d-\d\d)-(\d)-(.+)\.ics/',
-                $file->getFilename(),
-                $matches,
-            );
-
-            return (object)[
-                'filename' => $file->getFilename(),
-                'title' => Str::of($matches[4])->replace('-', ' ')->title(),
-            ];
+        )->tap(function ($files) use ($buildIndexPage) {
+            $buildIndexPage($files);
         });
-
-        $this->outputFile(
-            'index.html',
-            View::make('index', compact('calendarFiles'))->render()
-        );
 
         return 0;
     }
