@@ -21,14 +21,16 @@ class Calendar
      */
     public function __construct(public string $title, public Collection $months, public Collection $entries, public string $uri)
     {
-        $this->filename = Str::slug($this->title) . '.ics';
         $this->firstMonth = $months->first();
         $this->lastMonth = $months->last();
+
         $this->day = Carbon::parse(
             Str::of($title)->match(
                 '/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday)/i'
             )
         );
+
+        $this->filename = "{$this->firstMonth->format('Y-m')}-to-{$this->lastMonth->format('Y-m')}-{$this->day->format('N')}-" . Str::slug($title) . ".ics";
     }
 
     public function __toString(): string

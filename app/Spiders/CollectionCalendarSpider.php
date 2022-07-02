@@ -16,17 +16,16 @@ class CollectionCalendarSpider extends BasicSpider
     {
         $title = $response->filter('h1')->text();
 
-        $h2MonthRegex = '/^(january|february|march|april|may|june|july|august|september|october|november|december)/i';
+        $h2MonthRegex = '/^(january|february|march|april|may|june|july|august|september|october|november|december)(.+)(\d\d\d\d)$/i';
 
         $months = collect(
             $response->filter('h2')->each(
                 fn ($h2) => Str::of(
                     $this->replaceUnicodeSpacesWithAsciiSpaces($h2->text())
                 )->trim()
-                 ->match($h2MonthRegex)
             )
         )->filter(
-            fn ($h2) => $h2->isNotEmpty()
+            fn ($h2) => $h2->match($h2MonthRegex)->isNotEmpty()
         )->map(
             fn ($h2) => Carbon::parse($h2)
         );

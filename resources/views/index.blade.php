@@ -7,9 +7,9 @@
     </head>
     <body>
         <ul>
-            @foreach ($calendars as $calendar)
+            @foreach ($calendarFiles as $calendarFile)
                 <li>
-                    <a href="{{ $calendar->filename }}">{{ $calendar->title }}</a>
+                    <a href="{{ $calendarFile->filename }}">{{ $calendarFile->title }}</a>
                 </li>
             @endforeach
         </ul>

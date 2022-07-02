@@ -6,13 +6,15 @@ use App\Actions\CreateIcalData;
 use App\DTOs\Calendar;
 use App\DTOs\CalendarEntry;
 use App\Spiders\CollectionCalendarSpider;
+use App\Traits\OutputsFiles;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\View;
 use LaravelZero\Framework\Commands\Command;
 use RoachPHP\Roach;
 
 class Scrape extends Command
 {
+    use OutputsFiles;
+
     /**
      * The signature of the command.
      *
@@ -25,9 +27,7 @@ class Scrape extends Command
      *
      * @var string
      */
-    protected $description = 'Scrapes each collection calendar from bins and recycling site';
-
-    protected string $outputDirectory = 'output';
+    protected $description = 'Scrapes each collection calendar from bins and recycling site and writes them to .ics files';
 
     /**
      * Execute the console command.
@@ -38,8 +38,8 @@ class Scrape extends Command
     {
         $this->line("Application is running in " . config('app.env') . " mode");
 
-        if (!File::isDirectory($this->outputDirectory)) {
-            File::makeDirectory($this->outputDirectory);
+        if (!File::isDirectory("$this->outputDirectory/ics")) {
+            File::makeDirectory("$this->outputDirectory/ics", recursive: true);
             $this->info('Created output directory');
         }
 
@@ -52,7 +52,7 @@ class Scrape extends Command
         $scrapedItems
             ->pluck('calendar')
             ->sortBy(
-                fn ($calendar) => "{$calendar->firstMonth->year} {$calendar->firstMonth->month} {$calendar->day->format('w')}"
+                fn ($calendar) => "{$calendar->firstMonth->year} {$calendar->firstMonth->month} {$calendar->day->format('N')}"
             )
             ->each(function (Calendar $calendar) use ($createIcalData) {
                 $this->info("\n$calendar");
@@ -61,20 +61,9 @@ class Scrape extends Command
                     $this->comment($entry);
                 });
 
-                $this->outputFile($calendar->filename, $createIcalData($calendar));
-            })
-            ->tap(function ($calendars) {
-                $this->outputFile(
-                    'index.html',
-                    View::make('index', compact('calendars'))->render()
-                );
+                $this->outputFile("ics/$calendar->filename", $createIcalData($calendar));
             });
 
         return 0;
-    }
-
-    protected function outputFile(string $filename, string $content): void
-    {
-        File::put(base_path("$this->outputDirectory/$filename"), $content);
     }
 }
