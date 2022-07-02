@@ -5,7 +5,6 @@ namespace App\Spiders;
 use App\DTOs\CalendarEntry;
 use App\DTOs\Calendar;
 use Illuminate\Support\Carbon;
-use Carbon\CarbonPeriod;
 use Illuminate\Support\Str;
 use RoachPHP\Http\Request;
 use RoachPHP\Http\Response;
