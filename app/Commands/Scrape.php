@@ -8,7 +8,6 @@ use App\DTOs\CalendarEntry;
 use App\Spiders\CollectionCalendarSpider;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 use LaravelZero\Framework\Commands\Command;
 use RoachPHP\Roach;
 

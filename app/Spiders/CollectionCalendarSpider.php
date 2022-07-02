@@ -60,21 +60,23 @@ class CollectionCalendarSpider extends BasicSpider
     /** @return Request[] */
     protected function initialRequests(): array
     {
-        return collect([
-            'tuesday-a',
-            'tuesday-b',
-            'wednesday-a',
-            'wednesday-b',
-            'thursday-a',
-            'thursday-b',
-            'friday-a',
-            'friday-b',
-        ])->map(
-            fn ($slug) => new Request(
+        $urls = $this->context['urls'] ?? [
+            "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/tuesday-a-collection-calendar/",
+            "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/tuesday-b-collection-calendar/",
+            "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/wednesday-a-collection-calendar/",
+            "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/wednesday-b-collection-calendar/",
+            "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/thursday-a-collection-calendar/",
+            "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/thursday-b-collection-calendar/",
+            "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/friday-a-collection-calendar/",
+            "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/friday-b-collection-calendar/",
+        ];
+
+        return collect($urls)->map(
+            fn ($url) => new Request(
                 'GET',
-                "https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-day/$slug-collection-calendar/",
+                $url,
                 [$this, 'parse'],
-                ['verify' => config('app.env') !== 'development'],
+                ['verify' => false],
             ),
         )->toArray();
     }

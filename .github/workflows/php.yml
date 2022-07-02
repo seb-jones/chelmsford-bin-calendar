@@ -37,6 +37,9 @@ jobs:
     - name: Run Larastan static analyser
       run: ./vendor/bin/phpstan analyse --memory-limit=2G --no-progress
 
+    - name: Run Pest tests
+      run: ./vendor/bin/pest
+
     - name: Run scrape command
       run: php chelmsford-bins scrap
 
