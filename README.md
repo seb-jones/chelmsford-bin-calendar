@@ -11,6 +11,7 @@ It is built on the [Laravel Zero](https://github.com/laravel-zero/laravel-zero) 
 - [x] Make classes for Calendar and Entry
 - [x] Structure output sub-directories to naturally sort correctly
 - [x] Make action for writing index.html based on existing .ics files, rather than date that was just scraped
-- [ ] Output links in html grouped by Year and Month
+- [ ] Correctly assign Year to CalendarEntry dates
+- [ ] Revert back to handling everything in a single command
 - [ ] Commit output files after run in CI?
 - [ ] Publish on Github pages
