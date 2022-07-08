@@ -11,6 +11,8 @@ $serverProcess = null;
 beforeAll(function () {
     global $serverProcess;
     $serverProcess = proc_open('cd resources/html && php -S localhost:8123', [], $pipes);
+
+    sleep(2); // wait for server to start before running any tests
 });
 
 afterAll(function () {
