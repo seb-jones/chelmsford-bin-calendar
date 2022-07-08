@@ -7,16 +7,13 @@ use App\Actions\CreateIcalData;
 use App\DTOs\Calendar;
 use App\DTOs\CalendarEntry;
 use App\Spiders\CollectionCalendarSpider;
-use App\Traits\OutputsFiles;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use LaravelZero\Framework\Commands\Command;
 use RoachPHP\Roach;
 
 class Scrape extends Command
 {
-    use OutputsFiles;
-
     /**
      * The signature of the command.
      *
@@ -40,10 +37,7 @@ class Scrape extends Command
     {
         $this->line("Application is running in " . config('app.env') . " mode");
 
-        if (!File::isDirectory("$this->outputDirectory/ics")) {
-            File::makeDirectory("$this->outputDirectory/ics", recursive: true);
-            $this->info('Created output directory');
-        }
+        Storage::makeDirectory("ics");
 
         $scrapedItems = collect(
             Roach::collectSpider(CollectionCalendarSpider::class)
@@ -60,7 +54,7 @@ class Scrape extends Command
                     $this->comment($entry);
                 });
 
-                $this->outputFile("ics/$calendar->filename", $createIcalData($calendar));
+                Storage::put("ics/$calendar->filename", $createIcalData($calendar));
             })
             ->tap(function (Collection $calendars) use ($buildIndexPage) {
                 $buildIndexPage($calendars);

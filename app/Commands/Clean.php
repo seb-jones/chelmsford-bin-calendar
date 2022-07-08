@@ -2,14 +2,11 @@
 
 namespace App\Commands;
 
-use App\Traits\OutputsFiles;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use LaravelZero\Framework\Commands\Command;
 
 class Clean extends Command
 {
-    use OutputsFiles;
-
     /**
      * The signature of the command.
      *
@@ -31,6 +28,6 @@ class Clean extends Command
      */
     public function handle()
     {
-        File::deleteDirectory(base_path("$this->outputDirectory"));
+        Storage::deleteDirectory('/');
     }
 }
