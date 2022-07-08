@@ -43,9 +43,6 @@ jobs:
     - name: Run scrape command
       run: php chelmsford-bins scrap
 
-    - name: Run build command
-      run: php chelmsford-bins build
-
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
