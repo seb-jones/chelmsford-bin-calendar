@@ -11,7 +11,7 @@ beforeEach(function () {
     Storage::fake(config('filesystems.default'));
 });
 
-it('Writes an index.html file to output directory', function () {
+it('writes an index.html file to output directory', function () {
     createFakeCalendarCollectionAndInvokeAction();
 
     Storage::assertExists('index.html');
