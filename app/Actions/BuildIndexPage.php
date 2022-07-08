@@ -17,7 +17,7 @@ class BuildIndexPage
     public function __invoke(Collection $calendars)
     {
         $calendars = $calendars->sortBy(
-            fn ($calendar) => "{$calendar->firstMonth->year} {$calendar->firstMonth->month} {$calendar->day->format('N')}"
+            fn ($calendar) => "{$calendar->firstMonth->year} {$calendar->firstMonth->month} {$calendar->day->format('N')} $calendar->title"
         );
 
         $this->outputFile(

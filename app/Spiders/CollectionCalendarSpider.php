@@ -12,42 +12,53 @@ use RoachPHP\Spider\BasicSpider;
 
 class CollectionCalendarSpider extends BasicSpider
 {
+    public const H2_MONTH_REGEX = '/^(january|february|march|april|may|june|july|august|september|october|november|december)(.+)(\d\d\d\d)$/i';
+    public const LI_MONTH_REGEX = '/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday).+:.+$/i';
+
     public function parse(Response $response): \Generator
     {
         $title = $response->filter('h1')->text();
 
-        $h2MonthRegex = '/^(january|february|march|april|may|june|july|august|september|october|november|december)(.+)(\d\d\d\d)$/i';
-
-        $months = collect(
+        $h2s = collect(
             $response->filter('h2')->each(
-                fn ($h2) => Str::of(
-                    $this->replaceUnicodeSpacesWithAsciiSpaces($h2->text())
-                )->trim()
+                fn ($h2) => (object)[
+                    'node' => $h2,
+                    'title' => Str::of($this->replaceUnicodeSpacesWithAsciiSpaces($h2->text()))->trim(),
+                ]
             )
         )->filter(
-            fn ($h2) => $h2->match($h2MonthRegex)->isNotEmpty()
-        )->map(
-            fn ($h2) => Carbon::parse($h2)
-        );
+            fn ($h2) => $h2->title->match(self::H2_MONTH_REGEX)->isNotEmpty()
+        )->map(function ($h2) {
+            $h2->date = Carbon::parse($h2->title);
 
-        $liDayRegex = '/^(monday|tuesday|wednesday|thursday|friday|saturday|sunday).+:.+$/i';
+            return $h2;
+        });
 
-        $entries = collect(
-            $response->filter('h2 + ul > li')->each(fn ($element) => $element->text())
-        )->filter(
-            fn ($li) => Str::of($li)->trim()->match($liDayRegex)->isNotEmpty()
-        )->map(function ($li) {
-            $text = $this->replaceUnicodeSpacesWithAsciiSpaces($li);
+        $months = $h2s->pluck('date');
 
-            [ $date, $description ] = explode(':', $text);
+        $entries = $h2s->map(function ($h2) {
+            return collect(
+                $h2->node->nextAll()->first()->children('li')->each(
+                    fn ($element) => $this->replaceUnicodeSpacesWithAsciiSpaces($element->text())
+                )
+            )->map(function ($li) use ($h2) {
+                [ $date, $description ] = explode(':', $li);
 
-            return new CalendarEntry(Carbon::parse($date), trim($description));
-        })->values();
+                $date .= " {$h2->date->year}";
+
+                return new CalendarEntry(Carbon::parse($date), trim($description));
+            });
+        })->flatten(1);
 
         $uri = $response->getUri();
 
         yield $this->item([
-            'calendar' => new Calendar($title, $months, $entries, $uri)
+            'calendar' => new Calendar(
+                $title,
+                $months,
+                $entries,
+                $uri
+            )
         ]);
     }
 

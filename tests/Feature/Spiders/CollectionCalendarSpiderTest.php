@@ -62,6 +62,8 @@ test('calendar entries has length equal to the number of relevant LIs in HTML', 
 
 
 test('calendar entries match dates in HTML', function () {
+    $this->travelTo('2020-01-01');
+
     expect(
         runSpiderAndGetFirstCalendar()
             ->entries
