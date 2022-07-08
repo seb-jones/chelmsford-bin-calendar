@@ -2,7 +2,6 @@
 
 use App\DTOs\Calendar;
 use App\Spiders\CollectionCalendarSpider;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use RoachPHP\Roach;
 
