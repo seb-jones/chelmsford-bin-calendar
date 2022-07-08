@@ -38,7 +38,7 @@ jobs:
       run: ./vendor/bin/phpstan analyse --memory-limit=2G --no-progress
 
     - name: Run Pest tests
-      run: ./vendor/bin/pest
+      run: php chelmsford-bins test
 
     - name: Run scrape command
       run: php chelmsford-bins scrap
