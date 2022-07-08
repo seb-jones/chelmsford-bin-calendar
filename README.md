@@ -12,5 +12,5 @@ It is built on the [Laravel Zero](https://github.com/laravel-zero/laravel-zero) 
 - [x] Structure output sub-directories to naturally sort correctly
 - [x] Make action for writing index.html based on existing .ics files, rather than date that was just scraped
 - [x] Revert back to handling everything in a single command
-- [ ] Correctly assign Year to CalendarEntry dates
+- [x] Correctly assign Year to CalendarEntry dates
 - [ ] Publish on Github pages
