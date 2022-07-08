@@ -3,6 +3,7 @@
 use App\DTOs\Calendar;
 use App\Spiders\CollectionCalendarSpider;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Storage;
 use RoachPHP\Roach;
 
 $serverProcess = null;
@@ -15,6 +16,10 @@ beforeAll(function () {
 afterAll(function () {
     global $serverProcess;
     proc_terminate($serverProcess);
+});
+
+beforeEach(function () {
+    Storage::fake(config('filesystems.default'));
 });
 
 it('returns one item', function () {
