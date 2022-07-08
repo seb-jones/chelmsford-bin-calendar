@@ -5,7 +5,6 @@ use App\DTOs\Calendar;
 use App\DTOs\CalendarEntry;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 beforeEach(function () {
     Storage::fake(config('filesystems.default'));
