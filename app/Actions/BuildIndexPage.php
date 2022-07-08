@@ -2,33 +2,27 @@
 
 namespace App\Actions;
 
+use App\DTOs\Calendar;
 use App\Traits\OutputsFiles;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Str;
 
 class BuildIndexPage
 {
     use OutputsFiles;
 
-    public function __invoke(Collection $files)
+    /**
+     * @param Collection<Calendar> $calendars
+     */
+    public function __invoke(Collection $calendars)
     {
-        $files->map(function ($file) {
-            preg_match(
-                '/^(\d\d\d\d-\d\d)-to-(\d\d\d\d-\d\d)-(\d)-(.+)\.ics/',
-                $file->getFilename(),
-                $matches,
-            );
+        $calendars = $calendars->sortBy(
+            fn ($calendar) => "{$calendar->firstMonth->year} {$calendar->firstMonth->month} {$calendar->day->format('N')}"
+        );
 
-            return (object)[
-                'path' => "ics/{$file->getFilename()}",
-                'title' => Str::of($matches[4])->replace('-', ' ')->title(),
-            ];
-        })->tap(function ($calendarFiles) {
-            $this->outputFile(
-                'index.html',
-                View::make('index', compact('calendarFiles'))->render()
-            );
-        });
+        $this->outputFile(
+            'index.html',
+            View::make('index', compact('calendars'))->render()
+        );
     }
 }

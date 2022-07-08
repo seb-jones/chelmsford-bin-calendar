@@ -30,7 +30,7 @@ class Calendar
             )
         );
 
-        $this->filename = "{$this->firstMonth->format('Y-m')}-to-{$this->lastMonth->format('Y-m')}-{$this->day->format('N')}-" . Str::slug($title) . ".ics";
+        $this->filename = Str::slug($title) . ".ics";
     }
 
     public function __toString(): string

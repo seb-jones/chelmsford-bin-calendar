@@ -2,11 +2,13 @@
 
 namespace App\Commands;
 
+use App\Actions\BuildIndexPage;
 use App\Actions\CreateIcalData;
 use App\DTOs\Calendar;
 use App\DTOs\CalendarEntry;
 use App\Spiders\CollectionCalendarSpider;
 use App\Traits\OutputsFiles;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\File;
 use LaravelZero\Framework\Commands\Command;
 use RoachPHP\Roach;
@@ -27,14 +29,14 @@ class Scrape extends Command
      *
      * @var string
      */
-    protected $description = 'Scrapes each collection calendar from bins and recycling site and writes them to .ics files';
+    protected $description = 'Scrapes each collection calendar from bins and recycling site, writes them to .ics files and builds an index page with links';
 
     /**
      * Execute the console command.
      *
      * @return mixed
      */
-    public function handle(CreateIcalData $createIcalData)
+    public function handle(CreateIcalData $createIcalData, BuildIndexPage $buildIndexPage)
     {
         $this->line("Application is running in " . config('app.env') . " mode");
 
@@ -51,9 +53,6 @@ class Scrape extends Command
 
         $scrapedItems
             ->pluck('calendar')
-            ->sortBy(
-                fn ($calendar) => "{$calendar->firstMonth->year} {$calendar->firstMonth->month} {$calendar->day->format('N')}"
-            )
             ->each(function (Calendar $calendar) use ($createIcalData) {
                 $this->info("\n$calendar");
 
@@ -62,6 +61,11 @@ class Scrape extends Command
                 });
 
                 $this->outputFile("ics/$calendar->filename", $createIcalData($calendar));
+            })
+            ->tap(function (Collection $calendars) use ($buildIndexPage) {
+                $buildIndexPage($calendars);
+
+                $this->info("\nBuilt index page");
             });
 
         return 0;
