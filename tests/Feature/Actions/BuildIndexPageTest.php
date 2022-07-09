@@ -20,7 +20,7 @@ it('index.html contains hyperlink to .ics file', function () {
     $calendars = createFakeCalendarCollectionAndInvokeAction();
 
     expectIndexHtmlContents()->toContain(
-        '<a href="' . $calendars->first()->filename
+        '<a href="ics/' . $calendars->first()->filename
     );
 });
 
