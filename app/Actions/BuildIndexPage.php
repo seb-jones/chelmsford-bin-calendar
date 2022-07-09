@@ -14,10 +14,15 @@ class BuildIndexPage
      */
     public function __invoke(Collection $calendars)
     {
-        $calendars = $calendars->sortBy(
+        $calendarsByMonths = $calendars->sortBy(
             fn ($calendar) => "{$calendar->firstMonth->year} {$calendar->firstMonth->month} {$calendar->day->format('N')} $calendar->title"
+        )->groupBy(
+            fn ($calendar) => "{$calendar->firstMonth->format('F Y')} to {$calendar->lastMonth->format('F Y')}"
         );
 
-        Storage::put('index.html', View::make('index', compact('calendars'))->render());
+        Storage::put(
+            'index.html',
+            View::make('index', compact('calendarsByMonths'))->render(),
+        );
     }
 }
