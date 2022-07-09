@@ -15,7 +15,7 @@
             <ul>
                 @foreach ($calendars as $calendar)
                     <li>
-                        <a href="{{ $calendar->filename }}">{{ $calendar->title }}</a>
+                        <a href="ics/{{ $calendar->filename }}" download>{{ $calendar->title }}</a>
                     </li>
                 @endforeach
             </ul>
