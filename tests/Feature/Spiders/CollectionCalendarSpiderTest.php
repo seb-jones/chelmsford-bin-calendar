@@ -4,15 +4,31 @@ use App\DTOs\Calendar;
 use App\Spiders\CollectionCalendarSpider;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use RoachPHP\Roach;
 
 $serverProcess = null;
 
 beforeAll(function () {
     global $serverProcess;
-    $serverProcess = proc_open('cd resources/html && php -S localhost:8123', [], $pipes);
 
-    sleep(2); // wait for server to start before running any tests
+    $serverErrorFile = '/tmp/php-dev-server-output';
+
+    $descriptorSpec = [
+        0 => [ "pipe", "r" ],
+        1 => [ "pipe", "w" ],
+        2 => [ "file", $serverErrorFile, "a" ],
+    ];
+
+    $serverProcess = proc_open('cd resources/html && php -S localhost:8123', $descriptorSpec, $pipes);
+
+    // Wait for server to start
+    while (
+        !Str::of(file_get_contents($serverErrorFile))
+            ->contains('Development Server (http://localhost:8123) started')
+    ) {
+        sleep(1);
+    }
 });
 
 afterAll(function () {
