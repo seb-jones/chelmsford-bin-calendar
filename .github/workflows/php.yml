@@ -34,13 +34,13 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
-    - name: Run Larastan static analyser
+    - name: Run static analyser
       run: ./vendor/bin/phpstan analyse --memory-limit=2G --no-progress
 
-    - name: Run Pest tests
+    - name: Run tests
       run: ./vendor/bin/pest
 
-    - name: Run scrape command
+    - name: Run scrape
       run: php chelmsford-bins scrap
 
     - name: Upload artifacts
@@ -49,7 +49,7 @@ jobs:
         name: ics-files
         path: output
 
-    - name: Deploy built files to GitHub Pages
+    - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
