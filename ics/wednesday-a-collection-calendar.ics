@@ -3,8 +3,8 @@ PRODID:-//eluceo/ical//2.0/EN
 VERSION:2.0
 CALSCALE:GREGORIAN
 BEGIN:VEVENT
-UID:e7e9bdf1561671763078bbf147943352
-DTSTAMP:20220814T165159Z
+UID:c83f149630a1159ecfac09ee44530800
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -18,8 +18,8 @@ TRIGGER;VALUE=DATE-TIME:20220531T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:b5686f7d71326c836a0ba095efeaef4d
-DTSTAMP:20220814T165159Z
+UID:2a10b78d80eb084eedd0a679012218be
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -33,8 +33,8 @@ TRIGGER;VALUE=DATE-TIME:20220609T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:8d1dbc3e7818781aca4a2c0613a19816
-DTSTAMP:20220814T165159Z
+UID:0ca32eae502cf225d6c310f8985f965b
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -48,8 +48,8 @@ TRIGGER;VALUE=DATE-TIME:20220615T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:5ceb3dc88ae4dabb9beb8c3ba3104500
-DTSTAMP:20220814T165159Z
+UID:0d26ea2e089f66a1cd73c44e408a13d6
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -63,8 +63,8 @@ TRIGGER;VALUE=DATE-TIME:20220621T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:ac20e0c3fff2f7f599c176e73c05a9ed
-DTSTAMP:20220814T165159Z
+UID:1328d12fccfc38777cbc38c6778fac47
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -78,8 +78,8 @@ TRIGGER;VALUE=DATE-TIME:20220628T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:1b4d94c870b23478b62239f26516f53d
-DTSTAMP:20220814T165159Z
+UID:75a8cfe1923378744d94ce4a8030397c
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -93,8 +93,8 @@ TRIGGER;VALUE=DATE-TIME:20220705T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:635409d45cff686af765b5890f4d6157
-DTSTAMP:20220814T165159Z
+UID:8568978a938ef95cdf0eab6cc3f5f70c
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -108,8 +108,8 @@ TRIGGER;VALUE=DATE-TIME:20220712T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:29b6e7dc97833bb4a276c9922847dbc9
-DTSTAMP:20220814T165159Z
+UID:bdc2edf2efe4d30239798ea5f365c704
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -123,8 +123,8 @@ TRIGGER;VALUE=DATE-TIME:20220719T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:ae16b207c94cf7b722517f4571da57d5
-DTSTAMP:20220814T165159Z
+UID:b8502ffe645f3108c632b1d441a8ff58
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -138,8 +138,8 @@ TRIGGER;VALUE=DATE-TIME:20220726T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:a563d88a47d4936552834c41bced2090
-DTSTAMP:20220814T165159Z
+UID:ed06bfba197da8b45b56c20054226e48
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -153,8 +153,8 @@ TRIGGER;VALUE=DATE-TIME:20220802T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:230148f62666740be43f8b0234b266c8
-DTSTAMP:20220814T165159Z
+UID:ceb74f3ec1a7757f9f20baad4642dd47
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -168,8 +168,8 @@ TRIGGER;VALUE=DATE-TIME:20220809T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:bee5db0573ac986918ec66d0e1e8e5f4
-DTSTAMP:20220814T165159Z
+UID:ff763339074af83fc65a220558033ac0
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -183,8 +183,8 @@ TRIGGER;VALUE=DATE-TIME:20220816T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:da6e727d9ad33a64cbc440c9161d0166
-DTSTAMP:20220814T165159Z
+UID:8a72284611d2684a149f2adcf194445a
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -198,8 +198,8 @@ TRIGGER;VALUE=DATE-TIME:20220823T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:897df9530d0d899d945dba52343942ef
-DTSTAMP:20220814T165159Z
+UID:10aba66a888b2f171983df0e8360b4d4
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -213,8 +213,8 @@ TRIGGER;VALUE=DATE-TIME:20220830T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:3ab1c574b21ea134ae396d0923645e34
-DTSTAMP:20220814T165159Z
+UID:52fb80b4e63cbdd7a4876bd0c190e21d
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -228,8 +228,8 @@ TRIGGER;VALUE=DATE-TIME:20220906T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:1661ef8502a1546600e59d4207614727
-DTSTAMP:20220814T165159Z
+UID:2d50ba0dbc70c5e4673882e028109c0f
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -243,8 +243,8 @@ TRIGGER;VALUE=DATE-TIME:20220913T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:1e7a04dac40309b5ebb3386ba262c0b7
-DTSTAMP:20220814T165159Z
+UID:295e009f3809cd5b8e21340c5ba7d40d
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -258,8 +258,8 @@ TRIGGER;VALUE=DATE-TIME:20220920T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:0cf17872c606cf7f19af754f90f13e88
-DTSTAMP:20220814T165159Z
+UID:96ae8ffa111ca3e45df5d5e7f99df266
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -273,8 +273,8 @@ TRIGGER;VALUE=DATE-TIME:20220927T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:1b4c2c84d190556d8b4f236be434803d
-DTSTAMP:20220814T165159Z
+UID:154137916d0c157d213c60d68c619387
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -288,8 +288,8 @@ TRIGGER;VALUE=DATE-TIME:20221004T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:d88fc11679de00988ba20aeb09f6199c
-DTSTAMP:20220814T165159Z
+UID:48594c4ad0ffffbc2d5846b659fe880a
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sack
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -303,8 +303,8 @@ TRIGGER;VALUE=DATE-TIME:20221011T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:50cc1d42fc01b6d202ec620086461fe5
-DTSTAMP:20220814T165159Z
+UID:642df32957484fce7e0aeddfb19bf34a
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, brown bin\, paper sack\, plastic and cartons bag
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
@@ -318,8 +318,8 @@ TRIGGER;VALUE=DATE-TIME:20221018T183000Z
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
-UID:8eb1d507e9cb2a02e1515eab4af955a1
-DTSTAMP:20220814T165159Z
+UID:6b75c99beb36afe0e154f248c2892f6a
+DTSTAMP:20220821T165311Z
 SUMMARY:Bins
 DESCRIPTION:food waste\, black bin\, green box\, card sac
 URL:https://www.chelmsford.gov.uk/bins-and-recycling/check-your-collection-
